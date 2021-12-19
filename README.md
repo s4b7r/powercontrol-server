@@ -2,7 +2,7 @@
 
 [Rough idea / architecture (architecture-clientserver.drawio)](https://app.diagrams.net/#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fs4b7r%2Fpowercontrol-server%2Fmain%2Farchitecture-clientserver.drawio)
 
-See also [powercontrol-client](s4b7r/powercontrol-client)
+See also [powercontrol-client](https://github.com/s4b7r/powercontrol-client)
 
 ## Setup
 
