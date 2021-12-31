@@ -43,8 +43,10 @@ def is_in_frame_of_yesterday(time, frame):
 def is_in_any_frame(time):
     for frame in timeframes:
         if is_in_frame(time, frame):
+            print(f'(Current) time {time} s in frame {frame}')
             return True
         if is_in_frame_of_yesterday(time, frame):
+            print(f'(Current) time {time} s in frame of yesterday {frame}')
             return True
     return False
 
