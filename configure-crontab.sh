@@ -1,3 +1,3 @@
 #!/bin/sh
-chmod 0644 /etc/cron.d/crontabbot
-crontab /etc/cron.d/crontabbot
+chmod 0644 /etc/cron.d/pwrctrl-srv
+crontab /etc/cron.d/pwrctrl-srv
