@@ -1,0 +1,11 @@
+[Unit]
+Description=powercontrol-server
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=INSTALL_DIR/run-powercontrol-server.sh
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
