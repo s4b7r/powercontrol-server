@@ -8,7 +8,7 @@ python3 -m venv venv
 source venv/bin/activate
 pip3 install -r requirements.txt
 
-chmod u+x run-powercontrol-server.sh
+chmod u+x powercontrol-server.sh
 
 ufw allow in 8000/tcp
 
