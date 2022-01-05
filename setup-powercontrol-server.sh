@@ -17,4 +17,4 @@ systemctl daemon-reload
 systemctl start powercontrol-server.service
 
 chmod u+x configure-crontab.sh
-configure-crontab.sh
+./configure-crontab.sh
