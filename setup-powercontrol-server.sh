@@ -9,6 +9,8 @@ pip3 install starlette uvicorn
 
 chmod u+x run-powercontrol-server.sh
 
+ufw allow in 8000/tcp
+
 ln -s "$(pwd)/powercontrol-server.service" /etc/systemd/system/powercontrol-server.service
 sed -i "s;INSTALL_DIR;$(pwd);g" powercontrol-server.service
 systemctl daemon-reload
