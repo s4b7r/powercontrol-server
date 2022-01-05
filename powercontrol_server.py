@@ -21,14 +21,36 @@ def load_timeframes():
     with open('timeframes.json', 'r') as timeframes_file:
         timeframes = json.load(timeframes_file)
     for frame in timeframes:
-        # CAVEAT: Says it uses cron strings, but can't go with wildcard for day of month. <>
-        frame['days'] = list(map(int, frame['cron-start'].split(' ')[2].split(',')))
+        day_of_month_field = frame['cron-start'].split(' ')[2]
+        if day_of_month_field == '*':
+            frame['days'] = list(range(1, 31+1))
+        else:
+            frame['days'] = list(map(int, day_of_month_field.split(',')))
+        day_of_week_field = frame['cron-start'].split(' ')[4]
+        
+        if day_of_week_field == '*':
+            frame['weekdays'] = list(range(0, 6+1))
+        else:
+            weekday_encoding = {
+                                'MON': 0,
+                                'TUE': 1,
+                                'WED': 2,
+                                'THU': 3,
+                                'FRI': 4,
+                                'SAT': 5,
+                                'SUN': 6
+                                }
+            frame['weekdays'] = list(map(lambda weekday_name: weekday_encoding[weekday_name] , day_of_week_field.split(',')))
+        
         frame['duration'] = timedelta(minutes=int(frame['duration']))
 
 
 def is_in_frame(time, frame, day_offset=0):
-    # CAVEAT: Says it uses cron strings, but actually ignores month and day of week. <>
+    # CAVEAT: Says it uses cron strings, but actually ignores month. <>
     start = datetime.combine(date=date.today() - timedelta(days=day_offset), time=starttime_from_cronstring(frame['cron-start']))
+    # CAVEAT: Combination of day of month and day of week is a bit tricky and may not work as usual cron implementations do. <>
+    if start.weekday() not in frame['weekdays']:
+        return False
     if start.day not in frame['days']:
         return False
     end = start + frame['duration']
