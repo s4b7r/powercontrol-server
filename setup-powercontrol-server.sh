@@ -5,7 +5,7 @@ apt -y install etherwake
 
 python3 -m venv venv
 source venv/bin/activate
-pip3 install starlette uvicorn
+pip3 install -r requirements.txt
 
 chmod u+x run-powercontrol-server.sh
 
