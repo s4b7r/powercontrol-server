@@ -12,6 +12,7 @@ chmod u+x run-powercontrol-server.sh
 ln -s "$(pwd)/powercontrol-server.service" /etc/systemd/system/powercontrol-server.service
 sed -i "s;INSTALL_DIR;$(pwd);g" powercontrol-server.service
 systemctl daemon-reload
+systemctl start powercontrol-server.service
 
-echo "Configure your timeframes.json and execute configure-crontab.sh."
-echo "Then do 'systemctl start powercontrol-server.service'"
+chmod u+x configure-crontab.sh
+configure-crontab.sh
