@@ -3,6 +3,7 @@
 apt update
 apt -y install etherwake
 
+echo "Creating Python environment will usually take some time..."
 python3 -m venv venv
 source venv/bin/activate
 pip3 install -r requirements.txt
