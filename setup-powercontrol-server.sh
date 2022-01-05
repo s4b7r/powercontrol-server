@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 apt update
 apt -y install etherwake
@@ -13,5 +13,5 @@ ln -s "$(pwd)/powercontrol-server.service" /etc/systemd/system/powercontrol-serv
 sed -i "s;INSTALL_DIR;$(pwd);g" powercontrol-server.service
 systemctl daemon-reload
 
-echo "Configure your timeframes.json and execute configure-crontab.py."
+echo "Configure your timeframes.json and execute configure-crontab.sh."
 echo "Then do 'systemctl start powercontrol-server.service'"

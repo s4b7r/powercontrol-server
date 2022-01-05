@@ -1,3 +1,9 @@
-#!/bin/sh
-chmod 0644 /etc/cron.d/pwrctrl-srv
-crontab /etc/cron.d/pwrctrl-srv
+#!/usr/bin/env bash
+
+SCRIPT_PATH=$(dirname "$(realpath "$0")")
+. "$SCRIPT_PATH/venv/bin/activate"
+python "$SCRIPT_PATH/configure-crontab.py"
+
+chmod 0644 powercontrol-server-contrab
+ln -s "$(pwd)/powercontrol-server-crontab" /etc/cron.d/powercontrol-server-crontab
+crontab /etc/cron.d/powercontrol-server-crontab
