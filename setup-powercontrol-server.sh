@@ -17,5 +17,7 @@ sed -i "s;INSTALL_DIR;$(pwd);g" powercontrol-server.service
 systemctl daemon-reload
 systemctl start powercontrol-server.service
 
+chmod u+x wake.sh
+
 chmod u+x configure-crontab.sh
 ./configure-crontab.sh
