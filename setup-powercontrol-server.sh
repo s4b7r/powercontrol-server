@@ -19,5 +19,4 @@ systemctl start powercontrol-server.service
 
 chmod u+x wake.sh
 
-chmod u+x configure-crontab.sh
-./configure-crontab.sh
+. configure-crontab.sh
