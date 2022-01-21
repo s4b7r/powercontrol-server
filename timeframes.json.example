@@ -1,7 +1,15 @@
 [
     {
+        "default-mac": "aa:bb:cc:dd:ee:ff"
+    },
+    {
         "cron-start": "12 16 5,18,27 * *",
         "duration": "10",
         "client-mac": "aa:bb:cc:dd:ee:ff"
+    },
+    {
+        "cron-start": "12 16 5,18,27 * *",
+        "duration": "10",
+        "client-mac": "0a:bb:cc:dd:ee:ff"
     }
 ]

@@ -5,6 +5,9 @@ import json
 from datetime import time, datetime, timedelta, date
 
 
+DEFAULT_MAC = None
+
+
 def starttime_from_cronstring(cronstring):
     tokens = cronstring.split(' ')
     minutes = list(map(int, tokens[0].split(',')))
@@ -18,9 +21,15 @@ def starttime_from_cronstring(cronstring):
 
 def load_timeframes():
     global timeframes
+    global DEFAULT_MAC
+
     with open('timeframes.json', 'r') as timeframes_file:
         timeframes = json.load(timeframes_file)
     for frame in timeframes:
+        if 'default-mac' in frame:
+            DEFAULT_MAC = frame['default-mac']
+            continue
+
         day_of_month_field = frame['cron-start'].split(' ')[2]
         if day_of_month_field == '*':
             frame['days'] = list(range(1, 31+1))
@@ -62,8 +71,18 @@ def is_in_frame_of_yesterday(time, frame):
     return is_in_frame(time, frame, day_offset=1)
 
 
-def is_in_any_frame(time):
+def has_correct_mac(frame, client_mac):
+    client_mac = client_mac.replace('-', ':')
+    return frame['client_mac'] == client_mac
+
+
+def is_in_any_frame(time, **kwargs):
+    client_mac = kwargs.pop('client_mac')
+
     for frame in timeframes:
+        if not has_correct_mac(frame, client_mac):
+            continue
+
         if is_in_frame(time, frame):
             # print(f'(Current) time {time} s in frame {frame}')
             return True
@@ -73,16 +92,27 @@ def is_in_any_frame(time):
     return False
 
 
-def in_any_frame_now():
-    return is_in_any_frame(datetime.now())
+def is_in_any_frame_now(**kwargs):
+    return is_in_any_frame(datetime.now(), **kwargs)
 
 
 app = Starlette(on_startup=[load_timeframes])
 
 
+def get_shutdowntimestatus(client_mac=None):
+    client_mac = client_mac if client_mac else DEFAULT_MAC
+
+    return PlainTextResponse(f'{is_in_any_frame_now(client_mac)}')
+
+
+@app.route('/client_mac/{client_mac:str}')
+def request_shutdowntimestatus(request):
+    return get_shutdowntimestatus(request.path_params.get('client_mac'))
+
+
 @app.route('/')
-def get_shutdowntimestatus(request):
-    return PlainTextResponse(f'{in_any_frame_now()}')
+def request_shutdowntimestatus_old_wo_mac(request):
+    return get_shutdowntimestatus()
 
 
 if __name__ == '__main__':
