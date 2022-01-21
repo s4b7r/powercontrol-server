@@ -6,7 +6,10 @@ sed -i "s;ETHERWAKE_PATH;$(dirname "$(which etherwake)");g" wake.sh
 
 echo "Creating Python environment will usually take some time..."
 python3 -m venv venv
-source venv/bin/activate
+
+SCRIPT_PATH=$(dirname "$(realpath "$0")")
+. "$SCRIPT_PATH/venv/bin/activate"
+
 pip3 install -r requirements.txt
 
 chmod u+x powercontrol-server.sh
@@ -20,4 +23,7 @@ systemctl start powercontrol-server.service
 
 chmod u+x wake.sh
 
-. configure-crontab.sh
+python "$SCRIPT_PATH/configure-crontab.py"
+
+chmod 0644 powercontrol-server-crontab
+ln -s "$(pwd)/powercontrol-server-crontab" /etc/cron.d/powercontrol-server-crontab
