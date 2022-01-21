@@ -2,6 +2,7 @@
 
 apt update
 apt -y install etherwake
+sed -i "s;EHTERWAKE_PATH;$(dirname "$(which etherwake)");g" wake.sh
 
 echo "Creating Python environment will usually take some time..."
 python3 -m venv venv
