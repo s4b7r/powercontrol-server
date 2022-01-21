@@ -1,2 +1,2 @@
-starlette
-uvicorn
+starlette==0.17.1
+uvicorn==0.16.0
