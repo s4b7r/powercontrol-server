@@ -118,4 +118,4 @@ def request_shutdowntimestatus_old_wo_mac(request):
 
 
 if __name__ == '__main__':
-    uvicorn.run('powercontrol_server:app', host='0.0.0.0', port=8000, reload=True)
+    uvicorn.run('powercontrol_server:app', host='0.0.0.0', port=8000, reload=False)
