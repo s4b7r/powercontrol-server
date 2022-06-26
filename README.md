@@ -7,7 +7,7 @@ See also [powercontrol-client](https://github.com/s4b7r/powercontrol-client)
 ## Setup
 
 1. Create your own `timeframes.json` from the example.
-2. `chmod u+x setup-powercontrol-server.sh`
+2. `chmod u+x setup-*powercontrol-server.sh`
 3. Run `setup-powercontrol-server.sh`
 
 ## Roadmap

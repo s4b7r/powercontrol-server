@@ -2,7 +2,7 @@
 
 rm -r /var/backups/powercontrol-server/preupdate-backup
 mkdir -p /var/backups/powercontrol-server/preupdate-backup
-cp timeframes.json /var/backups/powercontrol-server/preupdate-backup/
+cp timeframes.json* /var/backups/powercontrol-server/preupdate-backup/
 
 rm /etc/cron.d/powercontrol-server-crontab
 rm powercontrol-server-crontab
